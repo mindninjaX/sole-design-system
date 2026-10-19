@@ -1,0 +1,57 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/**'
+  workflow_dispatch:
+
+# id-token lets npm sign the provenance statement when a real publish runs.
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          registry-url: https://registry.npmjs.org
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+
+      - name: Publish @soleapp/ui
+        env:
+          # A secret cannot be tested in `if:`, so the step reads it here and tests it in shell.
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          VERSION=$(node -p "require('./packages/ui/package.json').version")
+
+          # Ask the registry without the token: the package is public, and a placeholder
+          # token would be sent as a bad credential.
+          if found=$(NPM_CONFIG_USERCONFIG=/dev/null npm view "@soleapp/ui@${VERSION}" version 2>&1); then
+            if [ -n "$found" ]; then
+              echo "@soleapp/ui@${VERSION} is already published. Nothing to do; bump the version to release again."
+              exit 0
+            fi
+          elif ! echo "$found" | grep -q "E404"; then
+            echo "$found"
+            echo "::error::Could not check whether @soleapp/ui@${VERSION} is published."
+            exit 1
+          fi
+
+          if [ -n "$NPM_TOKEN" ]; then
+            NODE_AUTH_TOKEN="$NPM_TOKEN" npm publish -w @soleapp/ui --access public --provenance
+          else
+            npm publish -w @soleapp/ui --dry-run
+            echo "::notice::Dry run: create the soleapp npm organisation and add the NPM_TOKEN secret to publish"
+          fi

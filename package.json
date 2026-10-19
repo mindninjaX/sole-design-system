@@ -5,13 +5,14 @@
   "type": "module",
   "description": "Sole's design system: the @soleapp/ui package, its tokens and its documentation site.",
   "workspaces": [
-    "packages/tokens"
+    "packages/tokens",
+    "packages/ui"
   ],
   "engines": {
     "node": ">=22.22.0"
   },
   "scripts": {
-    "build": "npm run build -w @sole/tokens",
+    "build": "npm run build -w @sole/tokens && npm run build -w @soleapp/ui",
     "test": "npm test -w @sole/tokens",
     "site": "node scripts/build-tokens-page.ts",
     "changeset": "changeset"

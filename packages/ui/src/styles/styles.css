@@ -1,0 +1,59 @@
+/* The Sole look for Tailwind CSS v4. In your stylesheet:
+
+     @import "tailwindcss";
+     @import "@soleapp/ui/styles.css";
+
+   The tokens, the Tailwind mapping and the text-micro utility live in tokens.css, which
+   is generated from packages/tokens. This file adds the font, the base layer and the
+   reduced-motion rule, as Sole HQ has them. */
+
+@import "@fontsource-variable/inter";
+@import "./tokens.css";
+
+/* Light only (D31, owner 29 Sep): no dark theme and no theme switch. Nothing ever sets
+   a .dark class, so this keeps any `dark:` utility a shadcn component brings with it
+   from switching on under the system's prefers-color-scheme. The dark values wait in
+   hq/design/README.md for later. */
+@custom-variant dark (&:is(.dark *));
+
+/* ------------------------------------------------------------------ base */
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-background text-foreground font-sans text-body antialiased;
+    font-feature-settings: "cv11", "ss01";
+  }
+  /* Keys, dates, times and counts line up (brand-and-ux 1.4). */
+  .tnum,
+  time,
+  kbd {
+    font-variant-numeric: tabular-nums;
+  }
+  :focus-visible {
+    outline: none;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+/* Motion (5.6): colour changes 120ms, panels 200ms on the rise curve, no bounce, and
+   none of it for anyone who asked the system for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

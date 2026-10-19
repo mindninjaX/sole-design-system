@@ -234,6 +234,9 @@ p { margin: 0 0 12px; }
 .note { color: var(--muted-foreground); margin-bottom: 12px; }
 .note-sm { color: var(--subtle-foreground); font-size: 12px; line-height: 16px; margin-top: 4px; }
 .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--elevation-sm); padding: 16px; }
+.install { margin: 16px 0 0; max-width: 680px; }
+.install pre { margin: 0; padding: 12px 16px; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--elevation-sm); overflow-x: auto; font-family: ${tokens.font.mono.$value}; font-size: 12px; line-height: 20px; }
+.install .note-sm { margin: 8px 0 0; }
 .links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
 .links a { display: inline-flex; align-items: center; height: 32px; padding: 0 12px; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); text-decoration: none; font-weight: 500; }
 .links a:hover { border-color: var(--primary); }
@@ -276,7 +279,14 @@ footer { margin-top: 56px; color: var(--subtle-foreground); }
 <body>
 <main>
   <h1>Sole design system: tokens</h1>
-  <p class="lead">The design tokens behind the Sole look: colour, label hues, type, radius, elevation and motion. They are copied from Sole HQ's stylesheet and turned into CSS and DTCG JSON from one source file, so every product reads the same values. <code>@soleapp/ui</code>, with the components and the full documentation, comes next.</p>
+  <p class="lead">The design tokens behind the Sole look: colour, label hues, type, radius, elevation and motion. They are copied from Sole HQ's stylesheet and turned into CSS and DTCG JSON from one source file, so every product reads the same values. They ship as <code>@soleapp/ui</code>; the components and the full documentation come in later versions.</p>
+  <div class="install">
+    <pre>npm install @soleapp/ui</pre>
+    <div class="note-sm">Then, in your Tailwind v4 stylesheet:</div>
+    <pre>@import "tailwindcss";
+@import "@soleapp/ui/styles.css";</pre>
+    <div class="note-sm">No Tailwind? Import <code>@soleapp/ui/tokens.css</code> for the plain CSS variables, or read <code>@soleapp/ui/tokens.json</code>.</div>
+  </div>
   <div class="links">
     <a href="${REPO_URL}">GitHub repository</a>
     <a href="tokens.css" download>tokens.css</a>
