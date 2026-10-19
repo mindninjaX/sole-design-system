@@ -5,6 +5,7 @@ import { NOW } from './demo/people.ts';
 import type { DocSection } from './doc.tsx';
 import { Colour, Motion, RadiusElevation, Typography } from './pages/foundations.tsx';
 import { AiAgent, Overview, QuickStart } from './pages/get-started.tsx';
+import { DEFAULT_ICON, PAGE_ICONS } from './nav-icons.ts';
 import { CodeBlock, H2 } from './ui.tsx';
 
 const VERSION = '0.2.0';
@@ -112,7 +113,13 @@ function ComponentsIndex() {
                   href={`#/components/${s.id}`}
                   className="rounded-lg border border-border bg-card p-3 transition-colors hover:border-primary focus-visible:shadow-[var(--focus-ring)] focus-visible:outline-none"
                 >
-                  <div className="text-strong">{s.title}</div>
+                  <div className="flex items-center gap-2 text-strong">
+                    {(() => {
+                      const Icon = PAGE_ICONS[s.id] ?? DEFAULT_ICON;
+                      return <Icon aria-hidden="true" size={15} strokeWidth={1.8} className="shrink-0 text-muted-foreground" />;
+                    })()}
+                    {s.title}
+                  </div>
                   <div className="mt-0.5 line-clamp-2 text-label text-muted-foreground">{s.summary}</div>
                 </a>
               ))}
@@ -149,6 +156,9 @@ const indexPage: PageDef = {
 };
 
 const pages: PageDef[] = [...staticPages, indexPage, ...componentPages];
+
+/** A page's icon: by path for the fixed pages, by part id for the components. */
+const iconFor = (p: PageDef) => PAGE_ICONS[p.path] ?? PAGE_ICONS[p.path.replace('/components/', '')] ?? DEFAULT_ICON;
 /** Prev and next follow the sidebar's order. */
 const ordered: PageDef[] = [...staticPages, ...componentPages];
 
@@ -178,16 +188,18 @@ function Sidebar({ path, filter, onFilter }: { path: string; filter: string; onF
   const visible = (p: PageDef) => term === '' || p.title.toLowerCase().includes(term);
   const link = (p: PageDef) => {
     const active = p.path === path;
+    const Icon = iconFor(p);
     return (
       <a
         key={p.path}
         href={`#${p.path}`}
         aria-current={active ? 'page' : undefined}
-        className={`flex h-7 items-center rounded-md px-2.5 text-body transition-colors duration-[120ms] hover:bg-sidebar-hover focus-visible:shadow-[var(--focus-ring)] focus-visible:outline-none ${
+        className={`flex h-7 items-center gap-2 rounded-md px-2.5 text-body transition-colors duration-[120ms] hover:bg-sidebar-hover focus-visible:shadow-[var(--focus-ring)] focus-visible:outline-none ${
           active ? 'bg-accent font-medium text-accent-foreground hover:bg-accent' : 'text-sidebar-foreground'
         }`}
       >
-        {p.title}
+        <Icon aria-hidden="true" size={15} strokeWidth={1.8} className={`shrink-0 ${active ? 'text-accent-foreground' : 'text-muted-foreground'}`} />
+        <span className="truncate">{p.title}</span>
       </a>
     );
   };
