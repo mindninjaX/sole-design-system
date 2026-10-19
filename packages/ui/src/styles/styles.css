@@ -7,6 +7,7 @@
    is generated from packages/tokens. This file adds the font, the base layer and the
    reduced-motion rule, as Sole HQ has them. */
 
+@import "tw-animate-css";
 @import "@fontsource-variable/inter";
 @import "./tokens.css";
 
@@ -57,3 +58,7 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* The consumer's Tailwind scans the package's own files for the classes the parts use, so
+   a fresh app needs only the two imports. In dist this resolves to dist/. */
+@source "../";

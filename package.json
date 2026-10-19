@@ -6,7 +6,8 @@
   "description": "Sole's design system: the @sole-ui/react package, its tokens and its documentation site.",
   "workspaces": [
     "packages/tokens",
-    "packages/ui"
+    "packages/ui",
+    "apps/docs"
   ],
   "engines": {
     "node": ">=22.22.0"
