@@ -76,7 +76,7 @@ export function P({ children }: { children: ReactNode }) {
 
 /** Inline code. */
 export function Code({ children }: { children: ReactNode }) {
-  return <code className="rounded bg-hairline px-1 py-px font-mono text-[12px]">{children}</code>;
+  return <code>{children}</code>;
 }
 
 /** Numbered steps: each child is a step's content, the title is the step's heading. */

@@ -1,3 +1,20 @@
 @import "tailwindcss";
 @import "../../../packages/ui/src/styles/styles.css";
 @source "./";
+
+/* Inline code in the docs: a white chip with a hairline border, so it reads as a literal
+   and its padding never looks like a stray space before a comma. Code blocks (pre) keep
+   their own look. Unlayered on purpose: it must beat the utility classes some pages put on
+   a code element. */
+article :not(pre) > code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  line-height: 1;
+  padding: 2px 5px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--card);
+  color: var(--foreground);
+  font-variant-ligatures: none;
+  white-space: nowrap;
+}
