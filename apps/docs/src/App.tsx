@@ -1,10 +1,12 @@
 import { CommandPalette, Kbd, Pill, SoleMark, SoleProvider, Toaster } from '@sole-ui/react';
+import { ArrowRight, GitBranch, Package } from 'lucide-react';
 import { useEffect, useMemo, useState, useSyncExternalStore } from 'react';
 import type { ReactNode } from 'react';
 import { NOW } from './demo/people.ts';
 import type { DocSection } from './doc.tsx';
 import { Colour, Motion, RadiusElevation, Typography } from './pages/foundations.tsx';
 import { AiAgent, Overview, QuickStart } from './pages/get-started.tsx';
+import { Hero } from './hero.tsx';
 import { DEFAULT_ICON, PAGE_ICONS } from './nav-icons.ts';
 import { CodeBlock, H2 } from './ui.tsx';
 
@@ -204,7 +206,12 @@ function Sidebar({ path, filter, onFilter }: { path: string; filter: string; onF
     );
   };
   const heading = (text: string) => <div className="px-2.5 pt-4 pb-1 text-micro text-subtle-foreground">{text}</div>;
-  const subHeading = (text: string) => <div className="px-2.5 pt-3 pb-1 text-label font-medium text-muted-foreground">{text}</div>;
+  const subHeading = (text: string) => (
+    <div className="mt-3 mb-1 flex items-center gap-2 px-2.5 text-label font-semibold text-foreground">
+      {text}
+      <span className="h-px flex-1 bg-border" />
+    </div>
+  );
   const areas: Array<{ area: PageDef['area']; groups: NavGroup[] }> = [
     { area: 'Get started', groups: ['Get started'] },
     { area: 'Foundations', groups: ['Foundations'] },
@@ -266,10 +273,12 @@ function TopBar({ onSearch }: { onSearch: () => void }) {
         <span className="flex-1 text-left">Search the docs</span>
         <Kbd keys={['Cmd', 'K']} />
       </button>
-      <a href={NPM} className="rounded-md px-2 py-1 text-body text-muted-foreground hover:text-foreground">
+      <a href={NPM} className="flex items-center gap-1.5 rounded-md px-2 py-1 text-body text-muted-foreground transition-colors hover:text-foreground">
+        <Package aria-hidden="true" size={15} strokeWidth={1.8} />
         npm
       </a>
-      <a href={REPO} className="rounded-md px-2 py-1 text-body text-muted-foreground hover:text-foreground">
+      <a href={REPO} className="flex items-center gap-1.5 rounded-md px-2 py-1 text-body text-muted-foreground transition-colors hover:text-foreground">
+        <GitBranch aria-hidden="true" size={15} strokeWidth={1.8} />
         GitHub
       </a>
     </header>
@@ -306,7 +315,12 @@ function PageView({ page }: { page: PageDef }) {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = page.path === '/' ? 'Sole design system' : `${page.title} · Sole design system`;
+    document.title =
+      page.path === '/'
+        ? 'Sole design system · Components for Sole HQ'
+        : page.path === '/components'
+          ? 'Components · Sole design system'
+          : `${page.title} · ${page.area === 'Get started' ? 'Get started' : page.area} · Sole design system`;
     const headings = [...document.querySelectorAll<HTMLElement>('article h2')];
     setToc(
       headings.map((h) => {
@@ -321,16 +335,22 @@ function PageView({ page }: { page: PageDef }) {
     <div className="flex min-w-0 flex-1">
       <main className="min-w-0 flex-1 px-10 pt-8 pb-16">
         <article className="mx-auto max-w-[820px]">
-          <div className="mb-2 flex items-center gap-1.5 text-label text-subtle-foreground">
-            {crumb.map((c, i) => (
-              <span key={c} className="flex items-center gap-1.5">
-                {i > 0 && <span aria-hidden="true">/</span>}
-                {c}
-              </span>
-            ))}
-          </div>
-          <h1 className="text-page">{page.title}</h1>
-          <p className="mt-1 mb-6 max-w-[640px] text-read text-muted-foreground">{page.summary}</p>
+          {page.path === '/' ? (
+            <Hero />
+          ) : (
+            <>
+              <div className="mb-2 flex items-center gap-1.5 text-label text-subtle-foreground">
+                {crumb.map((c, i) => (
+                  <span key={c} className="flex items-center gap-1.5">
+                    {i > 0 && <span aria-hidden="true">/</span>}
+                    {c}
+                  </span>
+                ))}
+              </div>
+              <h1 className="text-[26px] leading-8 font-bold tracking-[-0.02em]">{page.title}</h1>
+              <p className="mt-1.5 mb-8 max-w-[640px] text-read text-muted-foreground">{page.summary}</p>
+            </>
+          )}
           {page.body()}
         </article>
         <nav aria-label="Previous and next" className="mx-auto mt-16 flex max-w-[820px] justify-between gap-4 border-t border-border pt-6">
@@ -345,7 +365,10 @@ function PageView({ page }: { page: PageDef }) {
           {next ? (
             <a href={`#${next.path}`} className="rounded-lg border border-border bg-card px-4 py-3 text-right hover:border-primary">
               <div className="text-label text-subtle-foreground">Next</div>
-              <div className="text-strong">{next.title}</div>
+              <div className="flex items-center justify-end gap-1.5 text-strong">
+                {next.title}
+                <ArrowRight aria-hidden="true" size={14} strokeWidth={1.8} />
+              </div>
             </a>
           ) : (
             <span />

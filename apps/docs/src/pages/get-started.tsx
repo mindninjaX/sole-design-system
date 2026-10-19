@@ -1,5 +1,6 @@
+import { ArrowRight, Component, Palette, Rocket, Sparkles } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import type { ReactNode } from 'react';
-import { Pill } from '@sole-ui/react';
 import { Callout, CodeBlock, Code, H2, H3, P, Steps, Table } from '../ui.tsx';
 
 // The three Get started pages. Each returns the page body only: the app shell draws the
@@ -164,11 +165,20 @@ If no part fits, say so and ask before writing a custom one.
 - Finish with a short report: the files you changed, and the parts you used, each with the part page you read.`;
 
 /** Four cards that open the main sections. Plain divs on token classes, so they match the tokens exactly. */
-function LinkCard({ href, title, children }: { href: string; title: string; children: string }) {
+function LinkCard({ href, title, icon: Icon, children }: { href: string; title: string; icon: LucideIcon; children: string }) {
   return (
-    <a href={href} className="block rounded-xl border border-border bg-card p-4 transition-colors hover:border-primary">
-      <div className="text-strong">{title}</div>
-      <div className="mt-1 text-body text-muted-foreground">{children}</div>
+    <a
+      href={href}
+      className="group block rounded-xl border border-border bg-card p-4 shadow-xs transition-[border-color,box-shadow] duration-[120ms] hover:border-primary hover:shadow-sm focus-visible:shadow-[var(--focus-ring)] focus-visible:outline-none"
+    >
+      <div className="flex items-center gap-2 text-strong">
+        <span className="flex size-6 items-center justify-center rounded-md bg-accent text-accent-foreground">
+          <Icon aria-hidden="true" size={14} strokeWidth={1.8} />
+        </span>
+        {title}
+        <ArrowRight aria-hidden="true" size={14} strokeWidth={1.8} className="ml-auto text-subtle-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-primary" />
+      </div>
+      <div className="mt-2 text-body text-muted-foreground">{children}</div>
     </a>
   );
 }
@@ -181,32 +191,22 @@ export function Overview() {
   return (
     <>
       <P>
-        <Code>@sole-ui/react</Code> is the design system behind Sole HQ: the colours, type, spacing and every part on the screen, packaged
-        so that anything built for Sole looks and behaves the same. It is written for the people building Sole HQ, and for the AI agents
-        that help them.
+        <Code>@sole-ui/react</Code> holds the colours, type, spacing and every part on the screen, so anything built for Sole looks and
+        behaves the same. It is written for the people building Sole HQ, and for the AI agents that help them. Everything here is copied
+        from Sole HQ itself: if the look changes, it changes in Sole HQ first, and the tokens and parts follow.
       </P>
-      <P>
-        Everything here is copied from Sole HQ itself. If the look changes, it changes in Sole HQ first, and the tokens and parts follow.
-      </P>
-      <div className="my-3 flex items-center gap-2 text-body text-muted-foreground">
-        <Pill tone="info">0.2.0</Pill>
-        <span>
-          On <a className="text-link hover:underline" href="https://www.npmjs.com/package/@sole-ui/react">npm</a>, source on{' '}
-          <a className="text-link hover:underline" href="https://github.com/mindninjaX/sole-design-system">GitHub</a>.
-        </span>
-      </div>
 
       <div className="my-6 grid max-w-[760px] grid-cols-1 gap-3 sm:grid-cols-2">
-        <LinkCard href="#/quick-start" title="Quick start">
+        <LinkCard href="#/quick-start" title="Quick start" icon={Rocket}>
           Install the package, add two lines of CSS and put the first part on a screen.
         </LinkCard>
-        <LinkCard href="#/ai-agent" title="Use with an AI agent">
+        <LinkCard href="#/ai-agent" title="Use with an AI agent" icon={Sparkles}>
           One prompt that sets up the package and builds with the right parts.
         </LinkCard>
-        <LinkCard href="#/foundations/colour" title="Foundations">
+        <LinkCard href="#/foundations/colour" title="Foundations" icon={Palette}>
           Colour, type, radius, elevation and motion, as tokens you can use as classes or variables.
         </LinkCard>
-        <LinkCard href="#/components/button" title="Components">
+        <LinkCard href="#/components/button" title="Components" icon={Component}>
           Every part, live, with its variants and states.
         </LinkCard>
       </div>
