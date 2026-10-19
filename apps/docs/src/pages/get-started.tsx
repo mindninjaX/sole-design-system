@@ -122,9 +122,9 @@ const TYPECHECK = `npx tsc --noEmit`;
 const AGENT_PROMPT = `You are adding the Sole design system (@sole-ui/react) to this project and building UI with it. Follow these steps in order.
 
 1. Read the docs first
-- Parts, live, with variants: https://mindninjax.github.io/sole-design-system/components/
+- Parts, live, with variants: https://mindninjax.github.io/sole-design-system/
 - README: https://github.com/mindninjaX/sole-design-system/blob/main/packages/ui/README.md
-- Machine-readable list of parts: https://mindninjax.github.io/sole-design-system/components/llms.txt
+- Machine-readable list of parts: https://mindninjax.github.io/sole-design-system/llms.txt
 Open a part's page before you use it, and use the props it shows.
 
 2. Install

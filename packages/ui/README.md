@@ -4,8 +4,7 @@ Sole's design system for React and Tailwind CSS v4: the design tokens (colour, l
 
 Light mode and desktop only. React 18.3 and 19.
 
-Every part, live, with its variants: https://mindninjax.github.io/sole-design-system/components/
-Every token: https://mindninjax.github.io/sole-design-system/
+Documentation, every part live with its variants, and every token: https://mindninjax.github.io/sole-design-system/
 
 ## Install
 

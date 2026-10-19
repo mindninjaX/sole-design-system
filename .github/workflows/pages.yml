@@ -27,9 +27,9 @@ jobs:
       - run: npm run build
       - run: npm test
       - run: npm run typecheck
-      - run: npm run site
-      # The components page builds into site/components, beside the tokens page.
+      # The docs site builds into site/ (and empties it first), then the token downloads join it.
       - run: npm run docs:build
+      - run: npm run site
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site

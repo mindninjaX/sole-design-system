@@ -344,6 +344,18 @@ function PageView({ page }: { page: PageDef }) {
           <a href={REPO} className="text-link hover:underline">
             Source on GitHub
           </a>
+          {' · '}
+          <a href="tokens.css" download className="text-link hover:underline">
+            tokens.css
+          </a>
+          {' · '}
+          <a href="tokens.json" download className="text-link hover:underline">
+            tokens.json
+          </a>
+          {' · '}
+          <a href="llms.txt" className="text-link hover:underline">
+            llms.txt
+          </a>
         </footer>
       </main>
       <OnThisPage items={toc} />

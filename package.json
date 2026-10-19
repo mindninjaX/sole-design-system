@@ -16,7 +16,7 @@
     "build": "npm run build -w @sole/tokens && npm run build -w @sole-ui/react",
     "test": "npm test -w @sole/tokens && npm test -w @sole-ui/react",
     "typecheck": "npm run typecheck -w @sole/tokens && npm run typecheck -w @sole-ui/react && npm run typecheck -w @sole/docs",
-    "site": "node scripts/build-tokens-page.ts",
+    "site": "node scripts/write-token-files.ts",
     "docs:build": "npm run build -w @sole/docs",
     "changeset": "changeset"
   },

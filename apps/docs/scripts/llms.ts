@@ -1,4 +1,4 @@
-// Writes site/components/llms.txt: a plain-text list of every part for AI agents (the
+// Writes site/llms.txt: a plain-text list of every part for AI agents (the
 // llmstxt.org shape). It loads the same section files the site renders, so it cannot drift.
 import { writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
@@ -14,7 +14,7 @@ interface Section {
 }
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const SITE = 'https://mindninjax.github.io/sole-design-system/components/';
+const SITE = 'https://mindninjax.github.io/sole-design-system/';
 
 const server = await createServer({ root, appType: 'custom', server: { middlewareMode: true }, logLevel: 'error' });
 try {
@@ -51,7 +51,7 @@ try {
     }
     lines.push('');
   }
-  const out = resolve(root, '../../site/components/llms.txt');
+  const out = resolve(root, '../../site/llms.txt');
   writeFileSync(out, `${lines.join('\n')}\n`);
   console.log(`Wrote ${out} with ${all.length} parts`);
 } finally {
