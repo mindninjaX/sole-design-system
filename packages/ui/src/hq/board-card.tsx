@@ -62,7 +62,8 @@ export const BoardCard = React.forwardRef<HTMLDivElement, BoardCardProps>(functi
       </SoleLink>
       {(item.labels.length > 0 || item.dueDate || item.assignees.length > 0) && (
         <div className="mt-2 flex min-w-0 items-center gap-1.5">
-          <LabelTags labels={item.labels} />
+          {/* The labels give way first: clipped inside their own box rather than drawn over the due date and avatars. */}
+          <LabelTags labels={item.labels} className="shrink overflow-hidden" />
           <DueChip due={item.dueDate} today={today} done={item.isDone} />
           <AvatarStack people={item.assignees} className="ml-auto" />
         </div>

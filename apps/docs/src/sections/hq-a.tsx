@@ -273,7 +273,7 @@ export const sections: DocSection[] = [
     importLine: "import { BoardCard } from '@sole-ui/react/hq'",
     render: () => (
       <Canvas>
-        <div className="grid grid-cols-3 items-start gap-3">
+        <div className="grid grid-cols-[repeat(auto-fill,270px)] items-start gap-3">
           <BoardCard item={ledger} today={TODAY} />
           <BoardCard item={unassigned} today={TODAY} />
           <BoardCard item={overdue} today={TODAY} />
