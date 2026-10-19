@@ -1,0 +1,280 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* Light only (D31, owner 29 Sep): no dark theme and no theme switch. Nothing ever sets
+   a .dark class, so this keeps any `dark:` utility a shadcn component brings with it
+   from switching on under the system's prefers-color-scheme. The dark values wait in
+   hq/design/README.md for later. */
+@custom-variant dark (&:is(.dark *));
+
+/* ------------------------------------------------------------------ tokens
+   Source: hq/design/README.md and brand-and-ux 5.2 to 5.6. Names are shadcn's where
+   shadcn has one. Text greys are split by role: foreground, muted, subtle all clear
+   4.5:1; faint is for dots, dividers and chevrons only, never words. */
+
+:root {
+  color-scheme: light;
+  --radius: 8px;
+
+  --background: #f5f5f5;
+  --foreground: #18181b;
+  --card: #ffffff;
+  --card-foreground: #18181b;
+  --popover: #ffffff;
+  --popover-foreground: #18181b;
+  --primary: #0270d6;
+  --primary-foreground: #ffffff;
+  --primary-hover: #0263bd;
+  --brand: #0485f7;
+  --link: #0263bd;
+  --secondary: #f4f4f5;
+  --secondary-foreground: #3f3f46;
+  --muted: #f4f4f5;
+  --muted-foreground: #52525b;
+  --subtle-foreground: #71717a;
+  --faint: #9ca3af;
+  --accent: #e6f2fe;
+  --accent-foreground: #0263bd;
+  --row-hover: #f7f9fc;
+  --border: #dedee0;
+  --hairline: #f3f3f7;
+  --input: #dedee0;
+  --field: #f9fafb;
+  --ring: #0485f7;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --danger-text: #b42318;
+  --danger-soft: #fef2f2;
+  --danger-border: #fecaca;
+  --warning: #f59e0b;
+  --warning-text: #b45309;
+  --warning-soft: #fffbeb;
+  --warning-border: #fcd34d;
+  --success: #10b981;
+  --success-text: #047857;
+  --success-soft: #ecfdf5;
+  --success-border: #a7f3d0;
+  --neutral-soft: #f3f4f6;
+  --neutral-text: #374151;
+  --skeleton: #eef0f3;
+  --sidebar: #f5f5f5;
+  --sidebar-foreground: #3f3f46;
+  --sidebar-accent: #e6f2fe;
+  --sidebar-accent-foreground: #0263bd;
+  --sidebar-hover: #ebebef;
+  --sidebar-border: #dedee0;
+  --sidebar-ring: #0485f7;
+  --tooltip: #18181b;
+  --tooltip-foreground: #ffffff;
+  --overdue: #dc2626;
+  --overdue-foreground: #ffffff;
+  --mark: #4d4dff;
+
+  /* State icon colours by group (brand-and-ux 5.8). */
+  --state-backlog: #9ca3af;
+  --state-unstarted: #71717a;
+  --state-started: #f59e0b;
+  --state-completed: #10b981;
+  --state-cancelled: #9ca3af;
+
+  /* Sticky notes (brand-and-ux 5.2). */
+  --sticky-gray: #d6d6d8;
+  --sticky-peach: #ffd5d7;
+  --sticky-pink: #fdd4e3;
+  --sticky-orange: #ffe3cd;
+  --sticky-green: #c3f0de;
+  --sticky-light-blue: #c5eff9;
+  --sticky-dark-blue: #c9dafb;
+  --sticky-purple: #e3d8fd;
+  --sticky-foreground: #18181b;
+
+  /* Shadows (5.6). */
+  --elevation-sm: 0 1px 2px rgba(16, 24, 40, 0.04), 0 1px 3px rgba(16, 24, 40, 0.05);
+  --elevation-lg: 0 12px 34px -10px rgba(16, 24, 40, 0.22);
+  --focus-ring: 0 0 0 3px rgba(4, 133, 247, 0.14);
+
+  --ease-rise: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Label hues (brand-and-ux 5.3 rule 6). Users pick a hue name, never a hex. The
+   approved design draws each tag from one ramp: the 50 step fill, 200 border, 800 text
+   and 600 dot, so every text pair clears 7:1 on its own fill. */
+.hue-slate { --tag-bg: #f8fafc; --tag-border: #e2e8f0; --tag-fg: #1e293b; --tag-dot: #475569; }
+.hue-indigo { --tag-bg: #eef2ff; --tag-border: #c7d2fe; --tag-fg: #3730a3; --tag-dot: #4f46e5; }
+.hue-violet { --tag-bg: #f5f3ff; --tag-border: #ddd6fe; --tag-fg: #5b21b6; --tag-dot: #7c3aed; }
+.hue-blue { --tag-bg: #eff6ff; --tag-border: #bfdbfe; --tag-fg: #1e40af; --tag-dot: #2563eb; }
+.hue-cyan { --tag-bg: #ecfeff; --tag-border: #a5f3fc; --tag-fg: #155e75; --tag-dot: #0891b2; }
+.hue-teal { --tag-bg: #f0fdfa; --tag-border: #99f6e4; --tag-fg: #115e59; --tag-dot: #0d9488; }
+.hue-green { --tag-bg: #f0fdf4; --tag-border: #bbf7d0; --tag-fg: #166534; --tag-dot: #16a34a; }
+.hue-lime { --tag-bg: #f7fee7; --tag-border: #d9f99d; --tag-fg: #3f6212; --tag-dot: #65a30d; }
+.hue-amber { --tag-bg: #fffbeb; --tag-border: #fde68a; --tag-fg: #92400e; --tag-dot: #d97706; }
+.hue-orange { --tag-bg: #fff7ed; --tag-border: #fed7aa; --tag-fg: #9a3412; --tag-dot: #ea580c; }
+.hue-rose { --tag-bg: #fff1f2; --tag-border: #fecdd3; --tag-fg: #9f1239; --tag-dot: #e11d48; }
+.hue-pink { --tag-bg: #fdf2f8; --tag-border: #fbcfe8; --tag-fg: #9d174d; --tag-dot: #db2777; }
+
+/* ------------------------------------------------------------------ Tailwind mapping */
+
+@theme inline {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-hover: var(--primary-hover);
+  --color-brand: var(--brand);
+  --color-link: var(--link);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-subtle-foreground: var(--subtle-foreground);
+  --color-faint: var(--faint);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-row-hover: var(--row-hover);
+  --color-border: var(--border);
+  --color-hairline: var(--hairline);
+  --color-input: var(--input);
+  --color-field: var(--field);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-danger-text: var(--danger-text);
+  --color-danger-soft: var(--danger-soft);
+  --color-danger-border: var(--danger-border);
+  --color-warning: var(--warning);
+  --color-warning-text: var(--warning-text);
+  --color-warning-soft: var(--warning-soft);
+  --color-warning-border: var(--warning-border);
+  --color-success: var(--success);
+  --color-success-text: var(--success-text);
+  --color-success-soft: var(--success-soft);
+  --color-success-border: var(--success-border);
+  --color-neutral-soft: var(--neutral-soft);
+  --color-neutral-text: var(--neutral-text);
+  --color-skeleton: var(--skeleton);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-hover: var(--sidebar-hover);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-tooltip: var(--tooltip);
+  --color-tooltip-foreground: var(--tooltip-foreground);
+  --color-overdue: var(--overdue);
+  --color-overdue-foreground: var(--overdue-foreground);
+  --color-mark: var(--mark);
+  --color-state-backlog: var(--state-backlog);
+  --color-state-unstarted: var(--state-unstarted);
+  --color-state-started: var(--state-started);
+  --color-state-completed: var(--state-completed);
+  --color-state-cancelled: var(--state-cancelled);
+  --color-sticky-foreground: var(--sticky-foreground);
+  --color-tag-bg: var(--tag-bg);
+  --color-tag-fg: var(--tag-fg);
+  --color-tag-border: var(--tag-border);
+  --color-tag-dot: var(--tag-dot);
+
+  /* Radius (5.6): chips and sidebar items 6, buttons and inputs 8, panels 12, dialogs 16. */
+  --radius-xs: 3px;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  --shadow-xs: var(--elevation-sm);
+  --shadow-sm: var(--elevation-sm);
+  --shadow-md: var(--elevation-lg);
+  --shadow-lg: var(--elevation-lg);
+  --shadow-xl: var(--elevation-lg);
+
+  --ease-rise: var(--ease-rise);
+
+  /* Type scale (brand-and-ux 5.4). text-micro is the only uppercase style and is a
+     utility below, because a theme token cannot carry text-transform. */
+  --text-label: 12px;
+  --text-label--line-height: 16px;
+  --text-label--font-weight: 500;
+  --text-body: 13px;
+  --text-body--line-height: 20px;
+  --text-strong: 14px;
+  --text-strong--line-height: 20px;
+  --text-strong--font-weight: 600;
+  --text-strong--letter-spacing: -0.01em;
+  --text-read: 16px;
+  --text-read--line-height: 26px;
+  --text-title: 18px;
+  --text-title--line-height: 24px;
+  --text-title--font-weight: 600;
+  --text-title--letter-spacing: -0.015em;
+  --text-page: 20px;
+  --text-page--line-height: 28px;
+  --text-page--font-weight: 600;
+  --text-page--letter-spacing: -0.02em;
+  --text-doc: 28px;
+  --text-doc--line-height: 34px;
+  --text-doc--font-weight: 700;
+  --text-doc--letter-spacing: -0.02em;
+  --text-metric: 28px;
+  --text-metric--line-height: 31px;
+  --text-metric--font-weight: 700;
+  --text-metric--letter-spacing: -0.02em;
+}
+
+@utility text-micro {
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------------ base */
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-background text-foreground font-sans text-body antialiased;
+    font-feature-settings: "cv11", "ss01";
+  }
+  /* Keys, dates, times and counts line up (brand-and-ux 1.4). */
+  .tnum,
+  time,
+  kbd {
+    font-variant-numeric: tabular-nums;
+  }
+  :focus-visible {
+    outline: none;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+/* Motion (5.6): colour changes 120ms, panels 200ms on the rise curve, no bounce, and
+   none of it for anyone who asked the system for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

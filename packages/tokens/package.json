@@ -1,0 +1,15 @@
+{
+  "name": "@sole/tokens",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "The one source of Sole's design tokens. Generates DTCG JSON and the CSS that @soleapp/ui ships.",
+  "scripts": {
+    "build": "node src/build.ts",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "devDependencies": {
+    "vitest": "^5.0.2"
+  }
+}

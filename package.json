@@ -1,0 +1,25 @@
+{
+  "name": "sole-design-system",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Sole's design system: the @soleapp/ui package, its tokens and its documentation site.",
+  "workspaces": [
+    "packages/tokens"
+  ],
+  "engines": {
+    "node": ">=22.22.0"
+  },
+  "scripts": {
+    "build": "npm run build -w @sole/tokens",
+    "test": "npm test -w @sole/tokens",
+    "site": "node scripts/build-tokens-page.ts",
+    "changeset": "changeset"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^3.0.3",
+    "@types/node": "^26.6.3",
+    "oxlint": "^1.86.0",
+    "typescript": "^7.0.2"
+  }
+}
