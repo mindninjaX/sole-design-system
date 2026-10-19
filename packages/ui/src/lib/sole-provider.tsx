@@ -2,6 +2,7 @@
 
 import { createContext, forwardRef, useContext, useEffect, useMemo, useState } from 'react';
 import type { AnchorHTMLAttributes, ComponentType, ReactNode, RefAttributes } from 'react';
+import { Tooltip as TooltipPrimitive } from 'radix-ui';
 import { SYDNEY, todayDate } from './dates.ts';
 import type { DateOnly } from './dates.ts';
 import type { SolePerson } from './person.ts';
@@ -55,7 +56,12 @@ export function SoleProvider({ children, linkComponent, timeZone, now, personHre
     }),
     [linkComponent, timeZone, now, personHref],
   );
-  return <SoleContext.Provider value={value}>{children}</SoleContext.Provider>;
+  // Radix tooltips need a provider above them. It lives here so a consumer wraps the app once.
+  return (
+    <SoleContext.Provider value={value}>
+      <TooltipPrimitive.Provider delayDuration={400}>{children}</TooltipPrimitive.Provider>
+    </SoleContext.Provider>
+  );
 }
 
 /** The provider's four values, or the defaults when there is no provider. */

@@ -1,16 +1,48 @@
 # @sole-ui/react
 
-Sole's design system. This first release (0.1.0) holds the design tokens: colour, label hues, type scale, radius, elevation and motion, copied from Sole HQ's stylesheet. The components come in later versions.
+Sole's design system for React and Tailwind CSS v4: the design tokens (colour, label hues, type scale, radius, elevation, motion) and the shared and Sole HQ components, typed, tested and copied from Sole HQ with the same look and behaviour.
 
-Light mode and desktop only.
+Light mode and desktop only. React 18.3 and 19.
 
-Documentation and a live view of every token: https://mindninjax.github.io/sole-design-system/
+Every part, live, with its variants: https://mindninjax.github.io/sole-design-system/components/
+Every token: https://mindninjax.github.io/sole-design-system/
 
 ## Install
 
 ```sh
 npm install @sole-ui/react
 ```
+
+## Components
+
+Peer dependencies: `react`, `react-dom` (18.3 or 19), `radix-ui` and, for the styles, `tailwindcss` v4.
+
+```sh
+npm install @sole-ui/react radix-ui
+```
+
+Wrap the app in `SoleProvider` once. It gives the parts your router's link, the work clock and the tooltip provider:
+
+```tsx
+import { Link } from 'react-router';
+import { Button, SoleProvider, Toaster } from '@sole-ui/react';
+import { StatePill } from '@sole-ui/react/hq';
+
+<SoleProvider
+  linkComponent={({ href, ...props }) => <Link to={href} {...props} />}
+  timeZone="Australia/Sydney"
+  personHref={(person) => `/people/${person.id}`}
+>
+  <Button>Save</Button>
+  <StatePill state={{ name: 'In progress', group: 'started' }} />
+  <Toaster />
+</SoleProvider>
+```
+
+- `@sole-ui/react` holds the shared shadcn parts (`Button`, `Dialog`, `Select`, `Tabs`, ...), the Sole parts (`Avatar`, `PersonChip`, `Pill`, `Table`, `FilterChip`, ...) and the app shell pieces (`AppFrame`, `Sidebar`, `TopBar`, `CommandPalette`).
+- `@sole-ui/react/hq` holds the parts only Sole HQ uses (`StateIcon`, `DueChip`, `WorkItemRow`, `BoardCard`, ...).
+- The parts are presentational: no router, no fetching. People are `SolePerson` (`id`, `name`, `avatarUrl?`, `isBot?`); links go through `SoleLink`. Pass `now` to `SoleProvider` to pin the clock in demos and tests.
+- Each part that draws an element forwards its ref, and every module starts with `'use client'`, so they work in Next.js too.
 
 ## With Tailwind CSS v4
 

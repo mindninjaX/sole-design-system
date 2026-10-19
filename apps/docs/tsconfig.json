@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "types": ["vite/client"],
+    "paths": {
+      "@sole-ui/react": ["../../packages/ui/src/index.ts"],
+      "@sole-ui/react/hq": ["../../packages/ui/src/hq/index.ts"]
+    }
+  },
+  "include": ["src", "vite.config.ts"]
+}

@@ -291,15 +291,21 @@ footer { margin-top: 56px; color: var(--subtle-foreground); }
 <body>
 <main>
   <h1>Sole design system: tokens</h1>
-  <p class="lead">The design tokens behind the Sole look: colour, label hues, type, radius, elevation and motion. They are copied from Sole HQ's stylesheet and turned into CSS and DTCG JSON from one source file, so every product reads the same values. They ship as <code>@sole-ui/react</code>; the components and the full documentation come in later versions.</p>
+  <p class="lead">The design tokens behind the Sole look: colour, label hues, type, radius, elevation and motion. They are copied from Sole HQ's stylesheet and turned into CSS and DTCG JSON from one source file, so every product reads the same values. They ship in <code>@sole-ui/react</code> together with the shared and Sole HQ components.</p>
+  <div class="links">
+    <a href="components/">Components: every part, live</a>
+    <a href="${REPO_URL}">GitHub repository</a>
+  </div>
   <h2>Install</h2>
   <h3>1. Add the package</h3>
   ${codeBlock('npm install @sole-ui/react', 'Copy the install command')}
   <h3>2. Import the styles in your main stylesheet (Tailwind CSS v4)</h3>
   ${codeBlock('@import "tailwindcss";\n@import "@sole-ui/react/styles.css";', 'Copy the stylesheet imports')}
-  <h3>3. Use the tokens</h3>
+  <h3>3. Use the tokens and the components</h3>
   <p class="note">The Sole colours and type scale are now Tailwind utilities, for example <code>bg-primary</code>, <code>text-muted-foreground</code> and <code>text-body</code>.</p>
   ${codeBlock('<button class="bg-primary text-primary-foreground rounded-lg px-3 h-8 text-body">Save</button>', 'Copy the button example')}
+  <p class="note">Or use the parts, which already carry the look. Wrap the app in <code>SoleProvider</code> once (it sets the router link, the work clock and the tooltip provider), then:</p>
+  ${codeBlock("import { Button, SoleProvider } from '@sole-ui/react';\nimport { StatePill } from '@sole-ui/react/hq';\n\n<SoleProvider>\n  <Button>Save</Button>\n  <StatePill state={{ name: \"In progress\", group: \"started\" }} />\n</SoleProvider>", 'Copy the component example')}
   <p class="note-sm">No Tailwind? Import <code>@sole-ui/react/tokens.css</code> for the plain CSS variables, or read <code>@sole-ui/react/tokens.json</code>.</p>
   <div class="links">
     <a href="${REPO_URL}">GitHub repository</a>

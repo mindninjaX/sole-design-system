@@ -6,7 +6,7 @@
   "description": "The live components page: every part of @sole-ui/react with its variants. Built into site/components.",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/llms.ts",
     "typecheck": "tsc -p tsconfig.json"
   },
   "devDependencies": {
