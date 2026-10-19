@@ -15,6 +15,16 @@ const REPO_URL = 'https://github.com/mindninjaX/sole-design-system';
 const esc = (text: string): string =>
   text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
+// A code block with a Copy button at its top right. The text is escaped, so a snippet with
+// < and > (the button example) shows exactly as written, and the copy script reads it back.
+function codeBlock(code: string, label: string): string {
+  return `
+  <div class="code">
+    <pre>${esc(code)}</pre>
+    <button type="button" class="copy" aria-label="${esc(label)}">Copy</button>
+  </div>`;
+}
+
 // Colour groups, in the order the source lists them. A token no group claims lands in
 // "Surface and text", so a new token always shows up on the page.
 const COLOUR_GROUPS: ReadonlyArray<{ title: string; note: string; match: (name: string) => boolean }> = [
@@ -234,9 +244,11 @@ p { margin: 0 0 12px; }
 .note { color: var(--muted-foreground); margin-bottom: 12px; }
 .note-sm { color: var(--subtle-foreground); font-size: 12px; line-height: 16px; margin-top: 4px; }
 .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--elevation-sm); padding: 16px; }
-.install { margin: 16px 0 0; max-width: 680px; }
-.install pre { margin: 0; padding: 12px 16px; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--elevation-sm); overflow-x: auto; font-family: ${tokens.font.mono.$value}; font-size: 12px; line-height: 20px; }
-.install .note-sm { margin: 8px 0 0; }
+.code { position: relative; max-width: 680px; margin: 0 0 12px; }
+.code pre { margin: 0; padding: 12px 88px 12px 16px; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--elevation-sm); overflow-x: auto; font-family: ${tokens.font.mono.$value}; font-size: 13px; line-height: 20px; }
+.copy { position: absolute; top: 8px; right: 8px; height: 24px; padding: 0 8px; background: var(--card); color: var(--muted-foreground); border: 1px solid var(--border); border-radius: 6px; font: inherit; font-size: 12px; font-weight: 500; cursor: pointer; }
+.copy:hover { border-color: var(--primary); color: var(--foreground); }
+.copy:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
 .links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
 .links a { display: inline-flex; align-items: center; height: 32px; padding: 0 12px; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); text-decoration: none; font-weight: 500; }
 .links a:hover { border-color: var(--primary); }
@@ -280,13 +292,15 @@ footer { margin-top: 56px; color: var(--subtle-foreground); }
 <main>
   <h1>Sole design system: tokens</h1>
   <p class="lead">The design tokens behind the Sole look: colour, label hues, type, radius, elevation and motion. They are copied from Sole HQ's stylesheet and turned into CSS and DTCG JSON from one source file, so every product reads the same values. They ship as <code>@sole-ui/react</code>; the components and the full documentation come in later versions.</p>
-  <div class="install">
-    <pre>npm install @sole-ui/react</pre>
-    <div class="note-sm">Then, in your Tailwind v4 stylesheet:</div>
-    <pre>@import "tailwindcss";
-@import "@sole-ui/react/styles.css";</pre>
-    <div class="note-sm">No Tailwind? Import <code>@sole-ui/react/tokens.css</code> for the plain CSS variables, or read <code>@sole-ui/react/tokens.json</code>.</div>
-  </div>
+  <h2>Install</h2>
+  <h3>1. Add the package</h3>
+  ${codeBlock('npm install @sole-ui/react', 'Copy the install command')}
+  <h3>2. Import the styles in your main stylesheet (Tailwind CSS v4)</h3>
+  ${codeBlock('@import "tailwindcss";\n@import "@sole-ui/react/styles.css";', 'Copy the stylesheet imports')}
+  <h3>3. Use the tokens</h3>
+  <p class="note">The Sole colours and type scale are now Tailwind utilities, for example <code>bg-primary</code>, <code>text-muted-foreground</code> and <code>text-body</code>.</p>
+  ${codeBlock('<button class="bg-primary text-primary-foreground rounded-lg px-3 h-8 text-body">Save</button>', 'Copy the button example')}
+  <p class="note-sm">No Tailwind? Import <code>@sole-ui/react/tokens.css</code> for the plain CSS variables, or read <code>@sole-ui/react/tokens.json</code>.</p>
   <div class="links">
     <a href="${REPO_URL}">GitHub repository</a>
     <a href="tokens.css" download>tokens.css</a>
@@ -329,6 +343,19 @@ footer { margin-top: 56px; color: var(--subtle-foreground); }
     ball.classList.remove('go');
     void ball.offsetWidth;
     ball.classList.add('go');
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.copy'), function (button) {
+    var timer = null;
+    function flash(label) {
+      button.textContent = label;
+      clearTimeout(timer);
+      timer = setTimeout(function () { button.textContent = 'Copy'; }, 2000);
+    }
+    button.addEventListener('click', function () {
+      var text = button.parentElement.querySelector('pre').textContent;
+      if (!navigator.clipboard) { flash('Copy failed'); return; }
+      navigator.clipboard.writeText(text).then(function () { flash('Copied'); }, function () { flash('Copy failed'); });
+    });
   });
 </script>
 </body>
