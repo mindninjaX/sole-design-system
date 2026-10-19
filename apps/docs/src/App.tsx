@@ -10,7 +10,7 @@ import { Hero } from './hero.tsx';
 import { DEFAULT_ICON, PAGE_ICONS } from './nav-icons.ts';
 import { CodeBlock, H2 } from './ui.tsx';
 
-const VERSION = '0.2.0';
+const VERSION = '0.2.1';
 const REPO = 'https://github.com/mindninjaX/sole-design-system';
 const NPM = 'https://www.npmjs.com/package/@sole-ui/react';
 

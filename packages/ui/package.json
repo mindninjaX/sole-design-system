@@ -1,6 +1,6 @@
 {
   "name": "@sole-ui/react",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Sole's design system for React and Tailwind CSS v4: the design tokens and the shared and Sole HQ components, typed and tested.",
   "type": "module",
   "license": "UNLICENSED",

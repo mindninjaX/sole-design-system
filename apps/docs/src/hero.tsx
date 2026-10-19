@@ -59,7 +59,7 @@ const items: WorkItemSummary[] = [
 export function Hero() {
   return (
     <section className="pb-2">
-      <Pill tone="info">v0.2.0 · Sole HQ</Pill>
+      <Pill tone="info">v0.2.1 · Sole HQ</Pill>
       <h1 className="mt-3 max-w-[640px] text-[34px] leading-[40px] font-bold tracking-[-0.02em]">The design system behind Sole HQ</h1>
       <p className="mt-3 max-w-[620px] text-[16px] leading-[26px] text-muted-foreground">
         One look, shipped as React parts. Install from npm, wrap the app once, and build screens that look and behave like Sole HQ.
