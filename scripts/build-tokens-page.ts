@@ -245,7 +245,7 @@ p { margin: 0 0 12px; }
 .note-sm { color: var(--subtle-foreground); font-size: 12px; line-height: 16px; margin-top: 4px; }
 .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--elevation-sm); padding: 16px; }
 .code { position: relative; max-width: 680px; margin: 0 0 12px; }
-.code pre { margin: 0; padding: 12px 88px 12px 16px; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--elevation-sm); overflow-x: auto; font-family: ${tokens.font.mono.$value}; font-size: 13px; line-height: 20px; }
+.code pre { margin: 0; padding: 12px 88px 12px 16px; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--elevation-sm); white-space: pre-wrap; overflow-wrap: anywhere; font-family: ${tokens.font.mono.$value}; font-size: 13px; line-height: 20px; }
 .copy { position: absolute; top: 8px; right: 8px; height: 24px; padding: 0 8px; background: var(--card); color: var(--muted-foreground); border: 1px solid var(--border); border-radius: 6px; font: inherit; font-size: 12px; font-weight: 500; cursor: pointer; }
 .copy:hover { border-color: var(--primary); color: var(--foreground); }
 .copy:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
