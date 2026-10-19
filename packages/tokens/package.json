@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "The one source of Sole's design tokens. Generates DTCG JSON and the CSS that @soleapp/ui ships.",
+  "description": "The one source of Sole's design tokens. Generates DTCG JSON and the CSS that @sole-ui/react ships.",
   "scripts": {
     "build": "node src/build.ts",
     "test": "vitest run",

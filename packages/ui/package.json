@@ -1,5 +1,5 @@
 {
-  "name": "@soleapp/ui",
+  "name": "@sole-ui/react",
   "version": "0.1.0",
   "description": "Sole's design system. This release holds the design tokens (colour, type, radius, elevation, motion) as CSS, DTCG JSON and a JavaScript object; the components come in later versions.",
   "type": "module",

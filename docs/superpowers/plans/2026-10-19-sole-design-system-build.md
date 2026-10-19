@@ -1,5 +1,7 @@
 # Sole design system build: implementation plan
 
+> 19 Oct 2026: the npm organisation is sole-ui, so the package is @sole-ui/react (the plan's @soleapp/ui).
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or
 > superpowers:executing-plans to implement this plan task by task. Steps use checkbox (`- [ ]`) syntax for tracking.
 

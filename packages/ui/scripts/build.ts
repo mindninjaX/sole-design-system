@@ -1,6 +1,6 @@
 // Writes packages/ui/dist: the four files consumers import (styles.css, tokens.css,
 // tokens.json) and the JavaScript entry (index.js with its types). Run with
-// `npm run build -w @soleapp/ui`, which builds the tokens first.
+// `npm run build -w @sole-ui/react`, which builds the tokens first.
 import { copyFileSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';

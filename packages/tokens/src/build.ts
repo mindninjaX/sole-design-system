@@ -1,5 +1,5 @@
 // Writes the two files other code reads: DTCG JSON for tools, and the CSS that
-// @soleapp/ui ships. Run with `npm run build -w @sole/tokens`.
+// @sole-ui/react ships. Run with `npm run build -w @sole/tokens`.
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';

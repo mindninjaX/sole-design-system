@@ -1,7 +1,7 @@
 /* The Sole look for Tailwind CSS v4. In your stylesheet:
 
      @import "tailwindcss";
-     @import "@soleapp/ui/styles.css";
+     @import "@sole-ui/react/styles.css";
 
    The tokens, the Tailwind mapping and the text-micro utility live in tokens.css, which
    is generated from packages/tokens. This file adds the font, the base layer and the

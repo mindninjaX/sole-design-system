@@ -29,7 +29,7 @@ jobs:
       - run: npm ci
       - run: npm run build
 
-      - name: Publish @soleapp/ui
+      - name: Publish @sole-ui/react
         env:
           # A secret cannot be tested in `if:`, so the step reads it here and tests it in shell.
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -38,20 +38,20 @@ jobs:
 
           # Ask the registry without the token: the package is public, and a placeholder
           # token would be sent as a bad credential.
-          if found=$(NPM_CONFIG_USERCONFIG=/dev/null npm view "@soleapp/ui@${VERSION}" version 2>&1); then
+          if found=$(NPM_CONFIG_USERCONFIG=/dev/null npm view "@sole-ui/react@${VERSION}" version 2>&1); then
             if [ -n "$found" ]; then
-              echo "@soleapp/ui@${VERSION} is already published. Nothing to do; bump the version to release again."
+              echo "@sole-ui/react@${VERSION} is already published. Nothing to do; bump the version to release again."
               exit 0
             fi
           elif ! echo "$found" | grep -q "E404"; then
             echo "$found"
-            echo "::error::Could not check whether @soleapp/ui@${VERSION} is published."
+            echo "::error::Could not check whether @sole-ui/react@${VERSION} is published."
             exit 1
           fi
 
           if [ -n "$NPM_TOKEN" ]; then
-            NODE_AUTH_TOKEN="$NPM_TOKEN" npm publish -w @soleapp/ui --access public --provenance
+            NODE_AUTH_TOKEN="$NPM_TOKEN" npm publish -w @sole-ui/react --access public --provenance
           else
-            npm publish -w @soleapp/ui --dry-run
-            echo "::notice::Dry run: create the soleapp npm organisation and add the NPM_TOKEN secret to publish"
+            npm publish -w @sole-ui/react --dry-run
+            echo "::notice::Dry run: add the NPM_TOKEN secret for the sole-ui npm organisation to publish"
           fi

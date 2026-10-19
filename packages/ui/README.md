@@ -1,4 +1,4 @@
-# @soleapp/ui
+# @sole-ui/react
 
 Sole's design system. This first release (0.1.0) holds the design tokens: colour, label hues, type scale, radius, elevation and motion, copied from Sole HQ's stylesheet. The components come in later versions.
 
@@ -9,7 +9,7 @@ Documentation and a live view of every token: https://mindninjax.github.io/sole-
 ## Install
 
 ```sh
-npm install @soleapp/ui
+npm install @sole-ui/react
 ```
 
 ## With Tailwind CSS v4
@@ -18,7 +18,7 @@ Tailwind v4 is an optional peer dependency (`^4.1.0`). In your main stylesheet:
 
 ```css
 @import "tailwindcss";
-@import "@soleapp/ui/styles.css";
+@import "@sole-ui/react/styles.css";
 ```
 
 That gives you:
@@ -32,7 +32,7 @@ That gives you:
 `tokens.css` is plain CSS custom properties on `:root`, plus the `.hue-*` classes. It works in any project:
 
 ```css
-@import "@soleapp/ui/tokens.css";
+@import "@sole-ui/react/tokens.css";
 
 .card {
   background: var(--card);
@@ -47,7 +47,7 @@ That gives you:
 ## In JavaScript
 
 ```js
-import { tokens } from "@soleapp/ui";
+import { tokens } from "@sole-ui/react";
 
 tokens.color.primary.$value; // "#0270d6"
 ```
@@ -56,10 +56,10 @@ tokens.color.primary.$value; // "#0270d6"
 
 ## tokens.json
 
-`@soleapp/ui/tokens.json` is the same tree in the [DTCG](https://www.designtokens.org/) format (`$value`, `$type`, `$description`), for design tools and other generators:
+`@sole-ui/react/tokens.json` is the same tree in the [DTCG](https://www.designtokens.org/) format (`$value`, `$type`, `$description`), for design tools and other generators:
 
 ```js
-import tokens from "@soleapp/ui/tokens.json" with { type: "json" };
+import tokens from "@sole-ui/react/tokens.json" with { type: "json" };
 ```
 
 ## Source

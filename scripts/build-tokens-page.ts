@@ -279,13 +279,13 @@ footer { margin-top: 56px; color: var(--subtle-foreground); }
 <body>
 <main>
   <h1>Sole design system: tokens</h1>
-  <p class="lead">The design tokens behind the Sole look: colour, label hues, type, radius, elevation and motion. They are copied from Sole HQ's stylesheet and turned into CSS and DTCG JSON from one source file, so every product reads the same values. They ship as <code>@soleapp/ui</code>; the components and the full documentation come in later versions.</p>
+  <p class="lead">The design tokens behind the Sole look: colour, label hues, type, radius, elevation and motion. They are copied from Sole HQ's stylesheet and turned into CSS and DTCG JSON from one source file, so every product reads the same values. They ship as <code>@sole-ui/react</code>; the components and the full documentation come in later versions.</p>
   <div class="install">
-    <pre>npm install @soleapp/ui</pre>
+    <pre>npm install @sole-ui/react</pre>
     <div class="note-sm">Then, in your Tailwind v4 stylesheet:</div>
     <pre>@import "tailwindcss";
-@import "@soleapp/ui/styles.css";</pre>
-    <div class="note-sm">No Tailwind? Import <code>@soleapp/ui/tokens.css</code> for the plain CSS variables, or read <code>@soleapp/ui/tokens.json</code>.</div>
+@import "@sole-ui/react/styles.css";</pre>
+    <div class="note-sm">No Tailwind? Import <code>@sole-ui/react/tokens.css</code> for the plain CSS variables, or read <code>@sole-ui/react/tokens.json</code>.</div>
   </div>
   <div class="links">
     <a href="${REPO_URL}">GitHub repository</a>
